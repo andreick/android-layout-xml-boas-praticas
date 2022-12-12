@@ -1,23 +1,18 @@
 package br.com.alura.aluraviagens.util;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MoedaUtil {
 
-    public static final String PORTUGUES = "pt";
-    public static final String BRASIL = "br";
-    public static final String FORMATO_PADRAO = "R$";
-    public static final String FORMATO_COM_ESPACO = "R$ ";
+    private static final String PORTUGUES = "pt";
+    private static final String BRASIL = "br";
 
     public static String formataParaBrasileiro(BigDecimal valor) {
-        NumberFormat formatoBrasileiro = DecimalFormat.getCurrencyInstance(
-                new Locale(PORTUGUES, BRASIL));
-        return formatoBrasileiro
-                .format(valor)
-                .replace(FORMATO_PADRAO, FORMATO_COM_ESPACO);
+        NumberFormat formatoBrasileiro = NumberFormat
+                .getCurrencyInstance(new Locale(PORTUGUES, BRASIL));
+        return formatoBrasileiro.format(valor);
     }
 
 }
