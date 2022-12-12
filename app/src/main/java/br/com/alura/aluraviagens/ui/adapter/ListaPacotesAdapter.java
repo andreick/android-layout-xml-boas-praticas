@@ -14,7 +14,7 @@ import java.util.List;
 import br.com.alura.aluraviagens.util.DiasUtil;
 import br.com.alura.aluraviagens.util.MoedaUtil;
 import br.com.alura.aluraviagens.R;
-import br.com.alura.aluraviagens.util.ResourceUtil;
+import br.com.alura.aluraviagens.util.ResourcesUtil;
 import br.com.alura.aluraviagens.model.Pacote;
 
 public class ListaPacotesAdapter extends BaseAdapter {
@@ -60,20 +60,20 @@ public class ListaPacotesAdapter extends BaseAdapter {
     private void mostraPreco(View viewCriada, Pacote pacote) {
         TextView preco = viewCriada.findViewById(R.id.item_pacote_preco);
         String moedaBrasileira = MoedaUtil
-                .formataParaBrasileiro(pacote.getPreco());
+                .formatarParaBrasileiro(pacote.getPreco());
         preco.setText(moedaBrasileira);
     }
 
     private void mostraDias(View viewCriada, Pacote pacote) {
         TextView dias = viewCriada.findViewById(R.id.item_pacote_dias);
-        String diasEmTexto = DiasUtil.formataEmTexto(pacote.getDias());
+        String diasEmTexto = DiasUtil.formatar(pacote.getDias());
         dias.setText(diasEmTexto);
     }
 
     private void mostraImagem(View viewCriada, Pacote pacote) {
         ImageView imagem = viewCriada.findViewById(R.id.item_pacote_imagem);
-        Drawable drawableImagemPacote = ResourceUtil
-                .devolveDrawable(context, pacote.getImagem());
+        Drawable drawableImagemPacote = ResourcesUtil
+                .getDrawable(context, pacote.getImagem());
         imagem.setImageDrawable(drawableImagemPacote);
     }
 

@@ -9,9 +9,9 @@ import java.text.NumberFormat;
 
 public class MoedaUtil {
 
-    public static String formataParaBrasileiro(BigDecimal valor) {
+    public static String formatarParaBrasileiro(BigDecimal valor) {
         NumberFormat formatadorBrasileiro = NumberFormat
-                .getCurrencyInstance(LocaleUtil.getBrasileiro());
+                .getCurrencyInstance(LocaleUtil.getLocaleBrasileiro());
         ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
         return formatadorBrasileiro.format(valor);
     }

@@ -8,54 +8,61 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import br.com.alura.aluraviagens.R;
 import br.com.alura.aluraviagens.model.Pacote;
+import br.com.alura.aluraviagens.util.DataUtil;
 import br.com.alura.aluraviagens.util.DiasUtil;
-import br.com.alura.aluraviagens.util.LocaleUtil;
 import br.com.alura.aluraviagens.util.MoedaUtil;
-import br.com.alura.aluraviagens.util.ResourceUtil;
+import br.com.alura.aluraviagens.util.ResourcesUtil;
 
 public class ResumoPacoteActivity extends AppCompatActivity {
+
+    private static final String TITULO_APPBAR = "Resumo do pacote";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumo_pacote);
 
-        setTitle("Resumo do pacote");
+        setTitle(TITULO_APPBAR);
 
         Pacote pacoteSp = new Pacote("São Paulo", "sao_paulo_sp", 2,
                 new BigDecimal("2430000000.99"));
 
-        ImageView ivLocal = findViewById(R.id.resumo_pacote_iv_local);
-        Drawable drawable = ResourceUtil.devolveDrawable(this, pacoteSp.getImagem());
-        ivLocal.setImageDrawable(drawable);
+        exibirImagemDoLocal(pacoteSp);
+        exibirLocal(pacoteSp);
+        exibirDias(pacoteSp);
+        exibirData(pacoteSp);
+        exibirPrecoTotal(pacoteSp);
+    }
 
-        TextView tvLocal = findViewById(R.id.resumo_pacote_tv_local);
-        tvLocal.setText(pacoteSp.getLocal());
-
-        TextView tvDias = findViewById(R.id.resumo_pacote_tv_dias);
-        String diasEmTexto = DiasUtil.formataEmTexto(pacoteSp.getDias());
-        tvDias.setText(diasEmTexto);
-
-        TextView tvData = findViewById(R.id.resumo_pacote_tv_data);
-        Calendar dataIda = Calendar.getInstance();
-        Calendar dataVolta = Calendar.getInstance();
-        dataVolta.add(Calendar.DATE, pacoteSp.getDias());
-        SimpleDateFormat formatadorBrasileiro =
-                new SimpleDateFormat("dd/MM", LocaleUtil.getBrasileiro());
-        String dataFormatadaIda = formatadorBrasileiro.format(dataIda.getTime());
-        String dataFormatadaVolta = formatadorBrasileiro.format(dataVolta.getTime());
-        String dataViagem = dataFormatadaIda + " - "
-                + dataFormatadaVolta + " de "
-                + dataVolta.get(Calendar.YEAR);
-        tvData.setText(dataViagem);
-
+    private void exibirPrecoTotal(Pacote pacote) {
         TextView tvPreco = findViewById(R.id.resumo_pacote_tv_preco);
-        String preco = MoedaUtil.formataParaBrasileiro(pacoteSp.getPreco());
-        tvPreco.setText(preco);
+        String precoFormatado = MoedaUtil.formatarParaBrasileiro(pacote.getPreco());
+        tvPreco.setText(precoFormatado);
+    }
+
+    private void exibirData(Pacote pacote) {
+        TextView tvData = findViewById(R.id.resumo_pacote_tv_data);
+        String dataViagem = DataUtil.formatarPeriodo(pacote.getDias());
+        tvData.setText(dataViagem);
+    }
+
+    private void exibirDias(Pacote pacote) {
+        TextView tvDias = findViewById(R.id.resumo_pacote_tv_dias);
+        String diasFormatados = DiasUtil.formatar(pacote.getDias());
+        tvDias.setText(diasFormatados);
+    }
+
+    private void exibirLocal(Pacote pacote) {
+        TextView tvLocal = findViewById(R.id.resumo_pacote_tv_local);
+        tvLocal.setText(pacote.getLocal());
+    }
+
+    private void exibirImagemDoLocal(Pacote pacote) {
+        ImageView ivLocal = findViewById(R.id.resumo_pacote_iv_local);
+        Drawable drawable = ResourcesUtil.getDrawable(this, pacote.getImagem());
+        ivLocal.setImageDrawable(drawable);
     }
 }
