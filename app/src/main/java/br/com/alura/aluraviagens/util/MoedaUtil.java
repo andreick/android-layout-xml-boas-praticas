@@ -1,18 +1,19 @@
 package br.com.alura.aluraviagens.util;
 
+import android.content.res.Resources;
+
+import androidx.core.os.ConfigurationCompat;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Locale;
 
 public class MoedaUtil {
 
-    private static final String PORTUGUES = "pt";
-    private static final String BRASIL = "br";
-
     public static String formataParaBrasileiro(BigDecimal valor) {
-        NumberFormat formatoBrasileiro = NumberFormat
-                .getCurrencyInstance(new Locale(PORTUGUES, BRASIL));
-        return formatoBrasileiro.format(valor);
+        NumberFormat formatadorBrasileiro = NumberFormat
+                .getCurrencyInstance(LocaleUtil.getBrasileiro());
+        ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
+        return formatadorBrasileiro.format(valor);
     }
 
 }
