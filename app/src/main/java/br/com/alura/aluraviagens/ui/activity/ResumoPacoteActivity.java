@@ -30,7 +30,7 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         Pacote pacoteSp = new Pacote("São Paulo", "sao_paulo_sp", 2,
                 new BigDecimal("2430000000.99"));
 
-        exibirImagemDoLocal(pacoteSp);
+        exibirImagemDoPacote(pacoteSp);
         exibirLocal(pacoteSp);
         exibirDias(pacoteSp);
         exibirData(pacoteSp);
@@ -60,9 +60,9 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         tvLocal.setText(pacote.getLocal());
     }
 
-    private void exibirImagemDoLocal(Pacote pacote) {
-        ImageView ivLocal = findViewById(R.id.resumo_pacote_iv_local);
+    private void exibirImagemDoPacote(Pacote pacote) {
+        ImageView ivPacote = findViewById(R.id.resumo_pacote_iv_pacote);
         Drawable drawable = ResourcesUtil.getDrawable(this, pacote.getImagem());
-        ivLocal.setImageDrawable(drawable);
+        ivPacote.setImageDrawable(drawable);
     }
 }
